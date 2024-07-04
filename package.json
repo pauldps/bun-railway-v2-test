@@ -1,0 +1,17 @@
+{
+  "name": "bun-railway-v2-test",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build --compile --minify --sourcemap ./index.ts --outfile server",
+    "lint": "bun --bun ts-standard --fix index.ts",
+    "test": "bun run lint && NODE_ENV=test bun test"
+  },
+  "dependencies": {
+    "elysia": "1.0.27"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.9"
+  }
+}
