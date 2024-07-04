@@ -1,16 +1,12 @@
-ARG BUN_VERSION=1.1.18
+FROM ruby:3.2
 
-FROM oven/bun:${BUN_VERSION}-debian
 WORKDIR /app
 
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
 COPY . .
-RUN bun install --frozen-lockfile
 
-ENV NODE_ENV=production
+ENV PORT=4567
 
-WORKDIR /app/
-
-# Compile the server executable
-RUN bun run build
-
-ENTRYPOINT [ "./server" ]
+CMD ["ruby", "app.rb"]
