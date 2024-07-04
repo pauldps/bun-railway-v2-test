@@ -1,16 +1,8 @@
-ARG BUN_VERSION=1.1.18
+FROM node:18-bullseye-slim
 
-FROM oven/bun:${BUN_VERSION}-debian
 WORKDIR /app
+COPY . /app
 
-COPY . .
-RUN bun install --frozen-lockfile
+RUN npm ci
 
-ENV NODE_ENV=production
-
-WORKDIR /app/
-
-# Compile the server executable
-RUN bun run build
-
-ENTRYPOINT [ "./server" ]
+CMD ["node", "./index.js"]
