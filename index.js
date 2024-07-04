@@ -1,14 +1,11 @@
-import http from 'http';
+import express from 'express'
+const app = express()
+const port = process.env['PORT'] ?? 3000
 
-const hostname = '0.0.0.0';
-const port = process.env['PORT'] ?? 3000;
+app.get('/', (req, res) => {
+  res.json({status: 'EXPRESS'})
+})
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end('{"status": "NODE"}\n');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`)
+})
