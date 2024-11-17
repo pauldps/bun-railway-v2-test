@@ -3,13 +3,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/index.ts",
-    "build": "bun build --compile --minify --sourcemap ./index.ts --outfile server",
-    "lint": "bun --bun ts-standard --fix index.ts",
-    "test": "bun run lint && NODE_ENV=test bun test"
+    "dev": "bun --watch index.ts",
+    "build": "bun build --compile --minify --sourcemap ./index.ts --outfile server"
   },
   "dependencies": {
-    "elysia": "1.0.27"
+    "graphql-yoga": "^5.7.0"
   },
   "devDependencies": {
     "@types/node": "20.14.9"

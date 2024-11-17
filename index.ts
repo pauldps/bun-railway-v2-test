@@ -1,7 +1,30 @@
-import { Elysia } from 'elysia'
+import { createSchema, createYoga } from "graphql-yoga"
 
-new Elysia()
-  .get('/', () => { return { status: 'OK' } })
-  .listen(process.env['PORT'] ?? 3000, (server) => {
-    console.log(`Server is running on port ${server.port}`)
+export const yoga = createYoga({
+  schema: createSchema({
+    typeDefs: `
+      type User {
+        id: ID!
+        name: String
+      }
+
+      type Query {
+        getUsers: [User!]!
+      }
+    `,
+    resolvers: {
+      Query: { getUsers: () => ([{ id: 1, name: 'John Doe' }]) }
+    }
   })
+})
+
+export const server = Bun.serve({
+  fetch: async (request) => await yoga(request)
+})
+
+console.info(
+  `Server is running on ${new URL(
+    yoga.graphqlEndpoint,
+    `http://${server.hostname}:${server.port}`
+  )}`
+)
